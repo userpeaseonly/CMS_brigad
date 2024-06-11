@@ -1,0 +1,37 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+<div class="container">
+    <h1>QA Dashboard</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Is Done</th>
+                <th>Is Checked</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.is_done }}</td>
+                <td>{{ task.is_checked }}</td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                        <input type="checkbox" name="is_done" value="true" {% if task.is_done %}checked{% endif %}>
+                        <input type="checkbox" name="is_checked" value="true" {% if task.is_checked %}checked{% endif %}>
+                        <button type="submit" name="set_done" class="btn btn-primary">Update</button>
+                        <button type="submit" name="set_checked" class="btn btn-secondary">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

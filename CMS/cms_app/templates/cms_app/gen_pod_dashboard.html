@@ -1,0 +1,35 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+<div class="container">
+    <h1>Gen Pod Dashboard</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub_pod in sub_pods %}
+            <tr>
+                <td>{{ sub_pod.id }}</td>
+                <td>{{ sub_pod.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Sub Pod</button>
+    </form>
+</div>
+{% endblock %}
